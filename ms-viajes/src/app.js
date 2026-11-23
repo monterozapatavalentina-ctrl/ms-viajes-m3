@@ -10,9 +10,9 @@ const app = express();
 // Middleware: convierte el cuerpo JSON de la petición en un objeto (req.body)
 app.use(express.json());
 
-// Registro: muestra en la terminal cada petición que llega
+// Registro: muestra en la terminal método, ruta y código de respuesta
 app.use((req, res, next) => {
-  console.log(`${new Date().toLocaleTimeString()} ${req.method} ${req.originalUrl}`);
+  res.on('finish', () => console.log(`${req.method} ${req.originalUrl} ${res.statusCode}`));
   next();
 });
 
