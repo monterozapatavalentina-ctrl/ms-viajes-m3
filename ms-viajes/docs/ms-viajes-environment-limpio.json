@@ -1,0 +1,26 @@
+{
+  "clientName": "Thunder Client",
+  "environmentName": "ms-viajes-local",
+  "environmentId": "40920dd3-a7aa-49ec-a336-6db7b7764861",
+  "dateExported": "2026-11-23T02:29:22.648Z",
+  "version": "1.2",
+  "variables": [
+    {
+      "name": "base_viajes",
+      "value": "http://127.0.0.1:3011"
+    },
+    {
+      "name": "base_usuarios",
+      "value": "http://127.0.0.1:3001"
+    },
+    {
+      "name": "token_admin",
+      "value": ""
+    },
+    {
+      "name": "token_comercial",
+      "value": ""
+    }
+  ],
+  "ref": "0a3mEu8cmHYmhULj-Ocd1gWAX8mA9r9Z7YwUML3nEPRHTmRqyWCj_ZbQoMZn4R82"
+}

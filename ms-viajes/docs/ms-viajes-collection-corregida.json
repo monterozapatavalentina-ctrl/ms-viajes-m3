@@ -1,0 +1,707 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "ms-viajes",
+  "collectionId": "b3247287-da84-436d-bd05-82a8d79b530f",
+  "dateExported": "2026-11-23T02:29:22.648Z",
+  "version": "1.4",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "d7bf8db2-1ddd-491e-8d92-b0fc8121b8cd",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "A1 login admin (200)",
+      "url": "{{base_usuarios}}/usuarios/login",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"admin@empresa.com\",",
+          "  \"password\": \"Admin2026*\"",
+          "}"
+        ],
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.token",
+          "action": "setto",
+          "value": "{{token_admin}}"
+        }
+      ]
+    },
+    {
+      "_id": "02a116ba-b3ac-478c-a4de-0e96b623df6c",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "A2 usuario comercial ya existente (409)",
+      "url": "{{base_usuarios}}/usuarios",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"nombre\": \"Comercial Prueba\",",
+          "  \"email\": \"comercial@empresa.com\",",
+          "  \"password\": \"Comercial2026*\",",
+          "  \"rol\": \"comercial\"",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "409"
+        }
+      ]
+    },
+    {
+      "_id": "f85e2ccf-4728-46e5-8fb2-4d9cbce4a53e",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "A3 login comercial (200)",
+      "url": "{{base_usuarios}}/usuarios/login",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"comercial@empresa.com\",",
+          "  \"password\": \"Comercial2026*\"",
+          "}"
+        ],
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.token",
+          "action": "setto",
+          "value": "{{token_comercial}}"
+        }
+      ]
+    },
+    {
+      "_id": "d6bbd71f-7546-42b0-84d2-1a6458c74d2c",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "01 GET sin token (401)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        }
+      ]
+    },
+    {
+      "_id": "b8166b04-c15d-4de7-a0bc-3eab4ed1b16d",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "02 GET listar comercial (200)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "0a8db1bc-9a18-4ea9-a3fb-39ee184a47b1",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "03 GET filtro destino=Bogota (200)",
+      "url": "{{base_viajes}}/viajes?destino=Bogota",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "destino",
+          "value": "Bogota",
+          "isPath": false
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "87f934fd-eef5-4a5e-a516-72d372a08639",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "04 GET por id 1 (200)",
+      "url": "{{base_viajes}}/viajes/1",
+      "method": "GET",
+      "sortNum": 80000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "ff9907c0-9326-4aa6-8cb7-0512d7109706",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "05 GET id inexistente 999 (404)",
+      "url": "{{base_viajes}}/viajes/999",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        }
+      ]
+    },
+    {
+      "_id": "f83f0cee-5d18-488a-8236-4dc5b50dac6a",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "06 GET id abc (400)",
+      "url": "{{base_viajes}}/viajes/abc",
+      "method": "GET",
+      "sortNum": 100000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        }
+      ]
+    },
+    {
+      "_id": "5bc69cef-11bd-411d-8567-14ae7123f4f3",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "07 POST crear V-004 admin (201)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 110000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-12-28\",",
+          "  \"pasajeros\": 4",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        }
+      ]
+    },
+    {
+      "_id": "8e7fda3d-2d55-4404-a089-f90803796907",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "08 POST codigo repetido (409)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 120000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-12-28\",",
+          "  \"pasajeros\": 4",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "409"
+        }
+      ]
+    },
+    {
+      "_id": "e7df1f80-a239-4468-b6db-6df354b413f8",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "09 POST pasajeros 0 (400)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 130000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-005\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-12-28\",",
+          "  \"pasajeros\": 0",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        }
+      ]
+    },
+    {
+      "_id": "8dad60e3-d3e7-49fe-a654-dd14ebaac70a",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "10 POST fecha invalida 2026-02-30 (400)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 140000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-005\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-02-30\",",
+          "  \"pasajeros\": 4",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        }
+      ]
+    },
+    {
+      "_id": "459bb719-4a92-49a0-b2b9-873044032979",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "11 POST sin origen (400)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 150000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-005\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-12-28\",",
+          "  \"pasajeros\": 4",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        }
+      ]
+    },
+    {
+      "_id": "874fdd2e-0754-44a3-9eb3-bfd2159fdbd2",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "12 POST comercial (403)",
+      "url": "{{base_viajes}}/viajes",
+      "method": "POST",
+      "sortNum": 160000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Cartagena\",",
+          "  \"fecha\": \"2026-12-28\",",
+          "  \"pasajeros\": 4",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "403"
+        }
+      ]
+    },
+    {
+      "_id": "e97f331f-d492-4c15-a40a-6b72bd09855d",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "13 PUT /4 admin (200)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "PUT",
+      "sortNum": 170000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Barranquilla\",",
+          "  \"fecha\": \"2026-12-30\",",
+          "  \"pasajeros\": 6",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "_id": "341f14b3-69bb-4ed2-9572-3753a7379f7d",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "14 PUT /999 (404)",
+      "url": "{{base_viajes}}/viajes/999",
+      "method": "PUT",
+      "sortNum": 180000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Barranquilla\",",
+          "  \"fecha\": \"2026-12-30\",",
+          "  \"pasajeros\": 6",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        }
+      ]
+    },
+    {
+      "_id": "6a7ef08c-7c42-45a3-a3db-1181f680f30c",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "15 PUT /4 con codigo V-001 (409)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "PUT",
+      "sortNum": 190000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-001\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Barranquilla\",",
+          "  \"fecha\": \"2026-12-30\",",
+          "  \"pasajeros\": 6",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "409"
+        }
+      ]
+    },
+    {
+      "_id": "e41f4a94-8217-4a53-816d-335bf986a976",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "16 PUT comercial (403)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "PUT",
+      "sortNum": 200000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"codigo\": \"V-004\",",
+          "  \"origen\": \"Cali\",",
+          "  \"destino\": \"Barranquilla\",",
+          "  \"fecha\": \"2026-12-30\",",
+          "  \"pasajeros\": 6",
+          "}"
+        ],
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "403"
+        }
+      ]
+    },
+    {
+      "_id": "48fa10af-67b0-48bf-b07d-26810edac48d",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "17 DELETE comercial (403)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "DELETE",
+      "sortNum": 210000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_comercial}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "403"
+        }
+      ]
+    },
+    {
+      "_id": "12ff41f2-1ba3-48f0-8a74-88e4fcf189d5",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "18 DELETE /4 admin (204)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "DELETE",
+      "sortNum": 220000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "204"
+        }
+      ]
+    },
+    {
+      "_id": "4dc081a7-9aac-44e7-a22a-dae2d8dee046",
+      "colId": "b3247287-da84-436d-bd05-82a8d79b530f",
+      "containerId": "",
+      "name": "19 DELETE /4 otra vez (404)",
+      "url": "{{base_viajes}}/viajes/4",
+      "method": "DELETE",
+      "sortNum": 230000,
+      "created": "2026-11-22T22:00:00.000Z",
+      "modified": "2026-11-22T22:00:00.000Z",
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token_admin}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        }
+      ]
+    }
+  ],
+  "ref": "O01_4L1mS2Xo2FiHqQH-B7xx_RFdWy2Uc59VDRsIl5eI5A5tKZC47lGHuaS-LxWr50fLwSe3zbMimnHXrG9DJA"
+}
