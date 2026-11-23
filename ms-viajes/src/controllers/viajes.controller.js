@@ -11,7 +11,7 @@ function leerId(req) {
 
 // GET /viajes
 async function listar(req, res) {
-  const filtros = { ciudad: req.query.ciudad, tipo: req.query.tipo };
+  const filtros = { destino: req.query.destino };
   if (req.query.ids) {
     filtros.ids = String(req.query.ids).split(',').map(Number);
     if (filtros.ids.some((id) => !Number.isInteger(id) || id <= 0)) {

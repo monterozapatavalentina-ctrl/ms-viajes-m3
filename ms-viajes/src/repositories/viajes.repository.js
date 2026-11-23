@@ -1,5 +1,4 @@
 // CAPA DE ACCESO A DATOS (repositorio): versión MySQL
-
 const pool = require('../db');
 
 async function findAll(filtros = {}) {
@@ -7,13 +6,9 @@ async function findAll(filtros = {}) {
   const condiciones = [];
   const valores = [];
 
-  if (filtros.ciudad) {
-    condiciones.push('ciudad = ?');
-    valores.push(filtros.ciudad);
-  }
-  if (filtros.tipo) {
-    condiciones.push('tipo = ?');
-    valores.push(filtros.tipo);
+  if (filtros.destino) {
+    condiciones.push('destino = ?');
+    valores.push(filtros.destino);
   }
   if (filtros.ids) {
     condiciones.push('id IN (?)');
@@ -30,23 +25,23 @@ async function findById(id) {
   return filas.length > 0 ? filas[0] : null;
 }
 
-async function findByNit(nit) {
-  const [filas] = await pool.query('SELECT * FROM viajes WHERE nit = ?', [nit]);
+async function findByCodigo(codigo) {
+  const [filas] = await pool.query('SELECT * FROM viajes WHERE codigo = ?', [codigo]);
   return filas.length > 0 ? filas[0] : null;
 }
 
-async function create(cliente) {
+async function create(viaje) {
   const [resultado] = await pool.query(
-    'INSERT INTO viajes (nombre, nit, ciudad, telefono, tipo, direccion, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [cliente.nombre, cliente.nit, cliente.ciudad, cliente.telefono, cliente.tipo, cliente.direccion, cliente.email]
+    'INSERT INTO viajes (codigo, origen, destino, fecha, pasajeros) VALUES (?, ?, ?, ?, ?)',
+    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros]
   );
   return findById(resultado.insertId);
 }
 
-async function update(id, cliente) {
+async function update(id, viaje) {
   const [resultado] = await pool.query(
-    'UPDATE viajes SET nombre = ?, nit = ?, ciudad = ?, telefono = ?, tipo = ?, direccion = ?, email = ? WHERE id = ?',
-    [cliente.nombre, cliente.nit, cliente.ciudad, cliente.telefono, cliente.tipo, cliente.direccion, cliente.email, id]
+    'UPDATE viajes SET codigo = ?, origen = ?, destino = ?, fecha = ?, pasajeros = ? WHERE id = ?',
+    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros, id]
   );
   if (resultado.affectedRows === 0) return null;
   return findById(id);
@@ -57,4 +52,4 @@ async function remove(id) {
   return resultado.affectedRows > 0;
 }
 
-module.exports = { findAll, findById, findByNit, create, update, remove };
+module.exports = { findAll, findById, findByCodigo, create, update, remove };

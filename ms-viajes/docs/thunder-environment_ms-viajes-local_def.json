@@ -1,0 +1,30 @@
+{
+    "clientName": "Thunder Client",
+    "environmentName": "ms-viajes-local",
+    "environmentId": "40920dd3-a7aa-49ec-a336-6db7b7764861",
+    "dateExported": "2026-11-23T00:17:27.920Z",
+    "version": "1.2",
+    "variables": [
+        {
+            "name": "base_viajes",
+            "value": "http://127.0.0.1:3011"
+        },
+        {
+            "name": "base_usuarios",
+            "value": "http://127.0.0.1:3001"
+        },
+        {
+            "name": "token_admin",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NTM4OTcxMSwiZXhwIjoxNzk3OTgxNzExfQ.kAOdVSV7-Z6JVODnIrev2TYqGNUGUpHzAspU1P35fzI"
+        },
+        {
+            "name": "token_comercial\t",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiTGF1cmEgR8OzbWV6Iiwicm9sIjoiY29tZXJjaWFsIiwiaWF0IjoxNzk1MzkxNDcyLCJleHAiOjE3OTc5ODM0NzJ9.EIo_qWe6NPkthz3gFvxj67S69HM6vU5RxtSEUnX3hPM"
+        },
+        {
+            "name": "token_comercial",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibm9tYnJlIjoiQ29tZXJjaWFsIFBydWViYSIsInJvbCI6ImNvbWVyY2lhbCIsImlhdCI6MTc5NTM5MjEyNSwiZXhwIjoxNzk1NDIwOTI1fQ.5KdxB3nbYTn3p701QUElvNKW9QLu9aoZrishNexTbK8"
+        }
+    ],
+    "ref": "0a3mEu8cmHYmhULj-Ocd1gWAX8mA9r9Z7YwUML3nEPRHTmRqyWCj_ZbQoMZn4R82"
+}
