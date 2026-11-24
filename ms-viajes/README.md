@@ -3,6 +3,8 @@
 Microservicio de **viajes** del taller_Parte2 del Módulo 3 (Redes y Servicios Multimedia, UAO).
 Expone un CRUD de viajes con MySQL, autenticación por token JWT y control de roles.
 
+BUSES_URL=http://127.0.0.1:3012
+
 **Autoras:** Valentina Montero Zapata y Estefanía del Amor Restrepo Campo
 
 ## 1. Datos generales
@@ -45,6 +47,7 @@ docs/               colección de pruebas
 | destino | texto | Obligatorio |
 | fecha | fecha | Obligatoria, formato `AAAA-MM-DD`, debe ser una fecha real |
 | pasajeros | entero | Obligatorio, mayor que 0 |
+| bus_id | entero >0| Obligatorio, mayor que 0, id existente en ms-buses (puerto 3012. Se valida contra ms-buses al crear y actualizar)|
 
 El microservicio no tiene campos de referencia a otras entidades.
 

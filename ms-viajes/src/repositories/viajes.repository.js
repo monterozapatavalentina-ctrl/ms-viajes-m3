@@ -32,16 +32,16 @@ async function findByCodigo(codigo) {
 
 async function create(viaje) {
   const [resultado] = await pool.query(
-    'INSERT INTO viajes (codigo, origen, destino, fecha, pasajeros) VALUES (?, ?, ?, ?, ?)',
-    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros]
+    'INSERT INTO viajes (codigo, origen, destino, fecha, pasajeros, bus_id) VALUES (?, ?, ?, ?, ?, ?)',
+    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros, viaje.bus_id]
   );
   return findById(resultado.insertId);
 }
 
 async function update(id, viaje) {
   const [resultado] = await pool.query(
-    'UPDATE viajes SET codigo = ?, origen = ?, destino = ?, fecha = ?, pasajeros = ? WHERE id = ?',
-    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros, id]
+    'UPDATE viajes SET codigo = ?, origen = ?, destino = ?, fecha = ?, pasajeros = ?, bus_id = ? WHERE id = ?',
+    [viaje.codigo, viaje.origen, viaje.destino, viaje.fecha, viaje.pasajeros, viaje.bus_id, id]
   );
   if (resultado.affectedRows === 0) return null;
   return findById(id);
