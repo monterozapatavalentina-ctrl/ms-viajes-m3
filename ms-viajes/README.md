@@ -1,6 +1,6 @@
 # ms-viajes
 
-Microservicio de **viajes** del examen del Módulo 3 (Redes y Servicios Multimedia, UAO).
+Microservicio de **viajes** del taller_Parte2 del Módulo 3 (Redes y Servicios Multimedia, UAO).
 Expone un CRUD de viajes con MySQL, autenticación por token JWT y control de roles.
 
 **Autoras:** Valentina Montero Zapata y Estefanía del Amor Restrepo Campo
