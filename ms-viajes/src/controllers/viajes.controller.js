@@ -28,7 +28,7 @@ async function obtener(req, res) {
 
 // POST /viajes
 async function crear(req, res) {
-  const nuevo = await service.crear(req.body);
+  const nuevo = await service.crear(req.body, req.headers.authorization);
   res.status(201).location(`${req.baseUrl}/${nuevo.id}`).json(nuevo);
 }
 
@@ -39,7 +39,7 @@ async function actualizar(req, res) {
 
 // DELETE /viajes/:id
 async function eliminar(req, res) {
-  await service.eliminar(leerId(req));
+  await service.eliminar(leerId(req.body), req.headers.authorization);
   res.status(204).end();
 }
 

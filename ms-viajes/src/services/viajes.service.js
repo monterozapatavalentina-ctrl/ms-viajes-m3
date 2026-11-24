@@ -2,6 +2,7 @@
 const repo = require('../repositories/viajes.repository');
 const { validarViaje, construirViaje } = require('../models/viajes');
 const HttpError = require('../utils/http-error');
+const busesClient = require('../clients/buses-client');
 
 async function listar(filtros) {
   return repo.findAll(filtros);
@@ -13,11 +14,20 @@ async function obtener(id) {
   return viaje;
 }
 
-async function crear(datos) {
+async function crear(datos, token) {
   const errores = validarViaje(datos);
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
 
   const viaje = construirViaje(datos);
+  const bus = await busesClient.obtenerBusPorId(viaje.bus_id, token);
+
+    if (viaje.pasajeros > bus.puestos) {
+    throw new HttpError(400, `El número de pasajeros (${viaje.pasajeros}) excede la capacidad del bus (${bus.puestos})`);
+  }
+
+  if (await repo.findByCodigo(viaje.codigo)) {
+    throw new HttpError(409, `Ya existe un viaje con el código ${viaje.codigo}`);
+  }
 
   if (await repo.findByCodigo(viaje.codigo)) {
     throw new HttpError(409, `Ya existe un viaje con el código ${viaje.codigo}`);
@@ -26,7 +36,7 @@ async function crear(datos) {
   return repo.create(viaje);
 }
 
-async function actualizar(id, datos) {
+async function actualizar(id, datos,token) {
   const errores = validarViaje(datos);
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
 
@@ -35,6 +45,11 @@ async function actualizar(id, datos) {
   }
 
   const viaje = construirViaje(datos);
+  const bus = await busesClient.obtenerBusPorId(viaje.bus_id, token);
+
+  if (viaje.pasajeros > bus.puestos) {
+    throw new HttpError(400, `El número de pasajeros (${viaje.pasajeros}) excede la capacidad del bus (${bus.puestos})`);
+  }
 
   const otro = await repo.findByCodigo(viaje.codigo);
   if (otro && otro.id !== id) {

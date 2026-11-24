@@ -25,6 +25,9 @@ function validarViaje(datos) {
   if (!Number.isInteger(datos.pasajeros) || datos.pasajeros <= 0) {
     errores.push('pasajeros debe ser un entero mayor que 0');
   }
+  if (!Number.isInteger(datos.bus_id) || datos.bus_id <= 0) {
+    errores.push('bus_id debe ser un entero positivo');
+  }
   return errores;
 }
 
@@ -35,6 +38,7 @@ function construirViaje(datos) {
     destino: datos.destino.trim(),
     fecha: datos.fecha,
     pasajeros: datos.pasajeros,
+    bus_id: datos.bus_id,
   };
 }
 
